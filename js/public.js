@@ -1,10 +1,10 @@
 //接口变量
 const http_url = {
-    formal_url: "http://bobao.yingtaiwx.com/px_edu",//正式
-    test_url: "http://bobao.yingtaiwx.com/px_edu",//测试
+    formal_url: "http://59.110.54.1:8080/jinding-back/",//正式
+    test_url: "http://59.110.54.1:8080/jinding-back/",//测试
     Socket_url: "ws://bobao.yingtaiwx.com/px_edu/imserver/",
     // Socket_url:"ws://192.168.2.19:8081/px_edu/imserver/",
-    url: "http://bobao.yingtaiwx.com/px_edu"
+    url: "http://59.110.54.1:8080/jinding-back/"
 };
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -28,7 +28,7 @@ function ajax(url, data, succ) {
         success: function (data) {
             if (data.code == "2") {
                 // alert(data.des);
-                window.location.href = "../html/register-next.html"
+                // window.location.href = "../html/register-next.html"
             } else {
                 succ(data);
             }
@@ -48,13 +48,13 @@ function ajax_get(url, succ) {
         dataType: "json",
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json;charset=utf-8"
-            // "Accept-Encoding":"gzip,deflate"
+            "Content-Type": "application/json;charset=utf-8",
+            // "token":""
         },
         success: function (data) {
             if (data.code == "2") {
                 // alert(data.des);
-                window.location.href = "../html/register-next.html"
+                // window.location.href = "../html/register-next.html"
             } else {
                 succ(data);
             }
@@ -78,7 +78,7 @@ function ajax_nodata(url, succ) {
         },
         success: function (data) {
             if (data.code == "2") {
-                window.location.href = "../html/register-next.html"
+                // window.location.href = "../html/register-next.html"
             } else {
                 succ(data);
             }
