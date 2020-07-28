@@ -56,5 +56,17 @@ $(function () {
         var wzsb=$(".wzsbimg").attr("data-url"),
             scqd=$(".scqdimg").attr("data-url"),
             xsz=$(".xszimg").attr("data-url");
+        ajax("/biz/tran/tran/save",{
+            "carNum":$("#carNum").val(),
+            "registTime":$("#registTime").val(),
+            "vehicleNum":$("#vehicleNum").val(),
+            "engineNum":$("#engineNum").val(),
+            "fuelType":$("#fuelType").val(),
+            "carCheckList":scqd,
+            "drivinglLicense":xsz,
+            "emissionStand":$("#emissionStand").val(),
+        },function(data){
+            console.log(data);
+        })
    })
 });
