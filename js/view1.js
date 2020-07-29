@@ -90,11 +90,11 @@ $(function () {
             var v=list[i];
             var enterImg=v.enterImg?v.enterImg.split(','):[],eterImgHtml=``;
             for(var j=0;j<enterImg.length;j++){
-                eterImgHtml+=`<img title="点击查看大图" class="table-img" src="${enterImg[j]&&enterImg[j].indexOf('http')!=-1?enterImg[j]:http_url.url+'/jinding/showImg/'+enterImg[j]}" alt="">`
+                eterImgHtml+=`<img title="点击查看大图" class="table-img" src="${enterImg[j]&&enterImg[j].indexOf('http')!=-1?enterImg[j]:enterImg[j]?http_url.url+'/jinding/showImg/'+enterImg[j]:''}" alt="">`
             }
             var outImg=v.outImg?v.outImg.split(','):[],outImgHtml=``;
             for(var k=0;k<outImg.length;k++){
-                outImgHtml+=`<img title="点击查看大图" class="table-img" src="${outImg[k]&&outImg[k].indexOf('http')!=-1?outImg[k]:http_url.url+'/jinding/showImg/'+outImg[k]}" alt="">`
+                outImgHtml+=`<img title="点击查看大图" class="table-img" src="${outImg[k]&&outImg[k].indexOf('http')!=-1?outImg[k]:outImg[k]?http_url.url+'/jinding/showImg/'+outImg[k]:''}" alt="">`
             }
             html+=' <tr>\n' +
                 '<td>'+(v.enterTime||'')+'</td>\n' +
@@ -110,8 +110,8 @@ $(function () {
                 '<td>'+(v.vehicleNum||'')+'</td>\n' +
                 '<td>'+(v.engineNum||'')+'</td>\n' +
                 '<td>'+(v.fuelType||'')+'</td>\n' +
-                '<td><img title="点击查看大图" class="table-img" src="'+(v.carCheckList&&v.carCheckList.indexOf('http')!=-1?v.carCheckList:http_url.url+'/jinding/showImg/'+v.carCheckList)+'" alt=""></td>\n' +
-                '<td><img title="点击查看大图" class="table-img" src="'+(v.drivinglLicense&&v.drivinglLicense.indexOf('http')!=-1?v.drivinglLicense:http_url.url+'/jinding/showImg/'+v.drivinglLicense)+'" alt=""></td>\n' +
+                '<td><img title="点击查看大图" class="table-img" src="'+(v.carCheckList&&v.carCheckList.indexOf('http')!=-1?v.carCheckList:v.carCheckList?http_url.url+'/jinding/showImg/'+v.carCheckList:'')+'" alt=""></td>\n' +
+                '<td><img title="点击查看大图" class="table-img" src="'+(v.drivinglLicense&&v.drivinglLicense.indexOf('http')!=-1?v.drivinglLicense:v.drivinglLicense?http_url.url+'/jinding/showImg/'+v.drivinglLicense:'')+'" alt=""></td>\n' +
                 '<td>'+(v.emissionStand||'')+'</td>\n' +
                 '<td>'+(v.clientName||'')+'</td>\n' +
                 '<td>'+(v.materialsNum||'')+'</td>\n' +
@@ -152,8 +152,8 @@ $(function () {
                 '<td>'+v.vehicleNum+'</td>\n' +
                 '<td>'+v.engineNum+'</td>\n' +
                 '<td>'+v.emissionStand+'</td>\n' +
-                '<td><img title="点击查看大图" class="table-img" src="'+(http_url.url+'/jinding/showImg/'+v.carCheckList)+'" alt=""></td>\n' +
-                '<td><img title="点击查看大图" class="table-img" src="'+(http_url.url+'/jinding/showImg/'+v.drivinglLicense)+'" alt=""></td>\n' +
+                '<td><img title="点击查看大图" class="table-img" src="'+(v.carCheckList&&v.carCheckList.indexOf('http')!=-1?v.carCheckList:v.carCheckList?http_url.url+'/jinding/showImg/'+v.carCheckList:'')+'" alt=""></td>\n' +
+                '<td><img title="点击查看大图" class="table-img" src="'+(v.drivinglLicense&&v.drivinglLicense.indexOf('http')!=-1?v.drivinglLicense:v.drivinglLicense?http_url.url+'/jinding/showImg/'+v.drivinglLicense:'')+'" alt=""></td>\n' +
                 '</tr>'
         }
         $(".factoryData").html(html)

@@ -1,6 +1,6 @@
 $(function () {
     var scqd=[],
-        xsz=[];
+        xsz=[],wzsb='';
     //随车清单,行驶证图片上传
    $(".img-up-input").on("change",function () {
        var that=$(this),
@@ -32,6 +32,24 @@ $(function () {
                // }else{
                //     $(".word-img").hide();
                // }
+               if(list=='wzsb'){
+                   $(".img-sb-model").show();
+                  ajax('/jinding/sacn/img',{
+                      "imgBase":_url
+                  },function (data) {
+                      if(data.code==10000){
+                          var datas=data.data;
+                          $(".img-sb-model").hide();
+                          $("#carNum").val(datas.carNum);
+                          $("#registTime").val(datas.registTime);
+                          $("#vehicleNum").val(datas.vehicleNum);
+                          $("#engineNum").val(datas.engineNum);
+                          wzsb=datas.drivinglLicense;
+                      }else{
+                          alert(data.msg)
+                      }
+                  })
+               }
                that.parent().hide();
                $("."+parent).append(html);
            };
@@ -53,20 +71,23 @@ $(function () {
        that.parent().remove();
    });
    $(".sub-btn").click(function () {
-        var wzsb=$(".wzsbimg").attr("data-url"),
-            scqd=$(".scqdimg").attr("data-url"),
-            xsz=$(".xszimg").attr("data-url");
-        ajax("/biz/tran/tran/save",{
+        var scqd=$(".scqdimg").attr("data-url");
+        ajax("/jinding/sacn/vehicle",{
             "carNum":$("#carNum").val(),
             "registTime":$("#registTime").val(),
             "vehicleNum":$("#vehicleNum").val(),
             "engineNum":$("#engineNum").val(),
             "fuelType":$("#fuelType").val(),
             "carCheckList":scqd,
-            "drivinglLicense":xsz,
+            "drivinglLicense":wzsb,
             "emissionStand":$("#emissionStand").val(),
         },function(data){
-            console.log(data);
+           if(data.code==10000){
+               alert("提交成功");
+               location.reload();
+           }else{
+               alert(data.msg)
+           }
         })
    })
 });

@@ -1,6 +1,6 @@
 //接口变量
 const http_url = {
-    formal_url: "http://59.110.54.1:8080/jinding-back/",//正式
+    formal_url: "http://192.168.3.43:8080/jinding-back/",//正式
     test_url: "http://59.110.54.1:8080/jinding-back/",//测试
     Socket_url: "ws://bobao.yingtaiwx.com/px_edu/imserver/",
     // Socket_url:"ws://192.168.2.19:8081/px_edu/imserver/",
