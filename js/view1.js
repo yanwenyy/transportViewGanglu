@@ -128,20 +128,34 @@ $(function () {
         $(".tranData").html(html)
     }
 
-    //场内运输
-    ajax_get("jinding/factory/car/list?pageNum=1&pageSize="+noImgPage+"&evnCarNum=&registTime=", function (data) {
-        $("#factoryPage").paging({
-                total: data.total,
-                numberPage: noImgPage
-            },
-            function(msg) {
-                //回调函数 msg为选中页码
-                ajax_get("jinding/factory/car/list?pageNum="+msg+"&pageSize="+noImgPage+"&evnCarNum=&registTime=", function (data) {
-                    factory(data)
-                });
-            });
-        factory(data)
+    var num=randomString();
+    var ws1=new PxSocket({
+        url:http_url.Socket_url,
+        name:'getData',
+        data:'jinding'+num,
+        succ:timeCar
     });
+    ws1.connect();
+    window.onbeforeunload = function () {
+        ws1.close();
+    };
+    timeCar();
+    //场内运输
+    function timeCar() {
+        ajax_get("jinding/factory/car/list?pageNum=1&pageSize="+noImgPage+"&evnCarNum=&registTime=", function (data) {
+            $("#factoryPage").paging({
+                    total: data.total,
+                    numberPage: noImgPage
+                },
+                function(msg) {
+                    //回调函数 msg为选中页码
+                    ajax_get("jinding/factory/car/list?pageNum="+msg+"&pageSize="+noImgPage+"&evnCarNum=&registTime=", function (data) {
+                        factory(data)
+                    });
+                });
+            factory(data)
+        });
+    }
     function factory(data) {
         var list=data.data,i=0,len=list.length,html='';
         for(;i<len;i++){

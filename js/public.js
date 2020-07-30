@@ -2,9 +2,9 @@
 const http_url = {
     formal_url: "http://27.188.74.31:9080/jinding-back/",//正式
     test_url: "http://59.110.54.1:8080/jinding-back/",//测试
-    Socket_url: "ws://bobao.yingtaiwx.com/px_edu/imserver/",
+    Socket_url: "ws://59.110.54.1:8080/jinding-back/imserver/",
     // Socket_url:"ws://192.168.2.19:8081/px_edu/imserver/",
-    url: "http://27.188.74.31:9080/jinding-back/"
+    url: "http://59.110.54.1:8080/jinding-back/"
 };
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
@@ -102,7 +102,9 @@ PxSocket.prototype = {
         var _this = this;
         try {
             if ('WebSocket' in window) {
+                console.log(_this.options.url + _this.options.data)
                 _this.ws = new WebSocket(_this.options.url + _this.options.data);
+                // console.log( _this.ws)
                 // console.log(http_url.Socket_url+options.id)
             } else {
                 alert("您的浏览器不支持websocket");
@@ -112,6 +114,7 @@ PxSocket.prototype = {
                 console.log("send error！");
             };
             _this.ws.onopen = function () {
+
                 _this.heartCheck();      //心跳检测重置
                 // console.log(_this.options.name +"  "+ new Date().toUTCString());
                 console.log("connection success！")
@@ -119,7 +122,8 @@ PxSocket.prototype = {
             _this.ws.onmessage = function (event) {
                 _this.heartCheck();      //拿到任何消息都说明当前连接是正常的
                 // console.log("llws收到消息啦:" + event.data);
-                if (event.data != 'pong') {
+                console.log(event.data)
+                if (event.data == 'pong') {
                     _this.options.succ(event.data);
                 } else {
                     console.log(_this.options.name + " is " + event.data);
