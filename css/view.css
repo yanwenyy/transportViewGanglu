@@ -256,6 +256,10 @@ body {
     font-size: 22px;
     font-weight: bold;
 }
+.foot{
+    text-align: right;
+    margin: 20px 0;
+}
 .img-pre{
     width: 100%;
     height: 100vh;

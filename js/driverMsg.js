@@ -72,22 +72,26 @@ $(function () {
    });
    $(".sub-btn").click(function () {
         var scqd=$(".scqdimg").attr("data-url");
-        ajax("/jinding/sacn/vehicle",{
-            "carNum":$("#carNum").val(),
-            "registTime":$("#registTime").val(),
-            "vehicleNum":$("#vehicleNum").val(),
-            "engineNum":$("#engineNum").val(),
-            "fuelType":$("#fuelType").val(),
-            "carCheckList":scqd,
-            "drivinglLicense":wzsb,
-            "emissionStand":$("#emissionStand").val(),
-        },function(data){
-           if(data.code==10000){
-               alert("提交成功");
-               location.reload();
-           }else{
-               alert(data.msg)
-           }
-        })
+        if($("#carNum").val()==''||$("#registTime").val()==''||$("#vehicleNum").val()==''||$("#engineNum").val()==''||$("#fuelType").val()==''|| $("#emissionStand").val()==''||scqd==''||scqd==undefined||wzsb==''||wzsb==undefined){
+            alert("请完善信息")
+        }else{
+            ajax("/jinding/sacn/vehicle",{
+                "carNum":$("#carNum").val(),
+                "registTime":$("#registTime").val(),
+                "vehicleNum":$("#vehicleNum").val(),
+                "engineNum":$("#engineNum").val(),
+                "fuelType":$("#fuelType").val(),
+                "carCheckList":scqd,
+                "drivinglLicense":wzsb,
+                "emissionStand":$("#emissionStand").val(),
+            },function(data){
+                if(data.code==10000){
+                    alert("提交成功");
+                    location.reload();
+                }else{
+                    alert(data.msg)
+                }
+            })
+        }
    })
 });
