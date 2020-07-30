@@ -86,12 +86,17 @@ $(function () {
                 "emissionStand":$("#emissionStand").val(),
             },function(data){
                 if(data.code==10000){
-                    alert("提交成功");
-                    location.reload();
+                    $(".shadow").show();
                 }else{
                     alert(data.msg)
                 }
             })
         }
+   });
+   $(".sub-again").click(function () {
+       location.reload();
    })
+    $(".closs-btn").click(function () {
+        window.close();
+    })
 });

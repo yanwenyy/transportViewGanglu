@@ -154,3 +154,46 @@
     -webkit-animation: rotation 8s linear infinite;
     -o-animation: rotation 8s linear infinite;
 }
+.shadow{
+    background: rgba(0,0,0,.3);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top:0;
+    left: 0;
+    display: none;
+}
+.shadow-model{
+    width: 50%;
+    background: #fff;
+    position:absolute;
+    top:30%;
+    left: 25%;
+    border-radius: 1rem;
+    font-size: 3rem;
+}
+.model-msg{
+    text-align: center;
+    padding:6rem 0;
+}
+.model-btn{
+    height: 8.8rem;
+    line-height: 8.8rem;
+    border-top:0.2rem solid #999;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+.model-btn>div{
+    width: 50%;
+    text-align: center;
+}
+.sub-again{
+    border-right:0.2rem solid #999;
+    color:#666;
+    background: #eee;
+}
+.closs-btn{
+    color:#fff;
+    background: #36BCA9;
+}
