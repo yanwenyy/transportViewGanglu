@@ -73,7 +73,7 @@ $(function () {
                     '<td>'+(v.checkOutTime||'')+'</td>\n' +
                     '<td>'+(v.outFactoryTime||'')+'</td>\n' +
                     '<td>'+eterImgHtml+'</td>\n' +
-                    '<td>'+eterImgHtml+'</td>\n' +
+                    '<td>'+outImgHtml+'</td>\n' +
                     '<td>'+(v.doorPostName||'')+'</td>\n' +
                     '<td>'+(v.poundRoom||'')+'</td>\n' +
                     '<td>'+(v.carNum||'')+'</td>\n' +
