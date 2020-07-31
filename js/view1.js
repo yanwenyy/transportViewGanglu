@@ -7,8 +7,21 @@ $(function () {
         $(".img-pre>img").attr("src",src);
         $(".img-pre").removeClass("out");
     });
+    $("body").on("mousewheel",".img-pre>img",function (e) {
+        var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
+            (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));              // firefox
+        if (delta > 0) {
+            // 向上滚
+            $(this).css("max-width",'100%');
+            $(this).width($(this).width()*1.1);
+        } else if (delta < 0) {
+            // 向下滚
+            $(this).width($(this).width()*0.8);
+        }
+    });
     $(".img-pre").click(function () {
         $(this).addClass("out");
+        $(".img-pre>img").css("max-width",'60%');
     });
 
 
@@ -64,13 +77,13 @@ $(function () {
                     '<td>'+(v.doorPostName||'')+'</td>\n' +
                     '<td>'+(v.poundRoom||'')+'</td>\n' +
                     '<td>'+(v.carNum||'')+'</td>\n' +
-                    '<td>'+(v.registTime||'')+'</td>\n' +
+                    '<td>'+(v.registTime&&v.registTime.split(" ")[0]||'')+'</td>\n' +
                     '<td>'+(v.vehicleNum||'')+'</td>\n' +
                     '<td>'+(v.engineNum||'')+'</td>\n' +
                     '<td>'+(v.fuelType||'')+'</td>\n' +
                     '<td><img title="点击查看大图" class="table-img" src="'+(v.carCheckList&&v.carCheckList.indexOf('http')!=-1?v.carCheckList:v.carCheckList?http_url.url+'/jinding/showImg/'+v.carCheckList:'')+'" alt=""></td>\n' +
                     '<td><img title="点击查看大图" class="table-img" src="'+(v.drivinglLicense&&v.drivinglLicense.indexOf('http')!=-1?v.drivinglLicense:v.drivinglLicense?http_url.url+'/jinding/showImg/'+v.drivinglLicense:'')+'" alt=""></td>\n' +
-                    '<td>'+(v.emissionStand||'')+'</td>\n' +
+                    '<td>'+(v.doorEmissionStand||'')+'</td>\n' +
                     '<td>'+(v.clientName||'')+'</td>\n' +
                     '<td>'+(v.materialsNum||'')+'</td>\n' +
                     '<td>'+(v.materialsName||'')+'</td>\n' +
@@ -79,7 +92,7 @@ $(function () {
                     '<td>'+(v.tareWeigh||'')+'</td>\n' +
                     '<td>'+(v.netWeigh||'')+'</td>\n' +
                     '<td>'+(v.containerNum||'')+'</td>\n' +
-                    '<td>'+(v.effectiveData==1?'公路':'铁路')+'</td>\n' +
+                    '<td>'+(v.tranType==1?'公路':'铁路')+'</td>\n' +
                     '<td>'+(v.transportUnit||'')+'</td>\n' +
                     '</tr>'
             }

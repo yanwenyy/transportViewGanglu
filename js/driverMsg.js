@@ -98,5 +98,6 @@ $(function () {
    })
     $(".closs-btn").click(function () {
         window.close();
+        WeixinJSBridge.call('closeWindow');
     })
 });

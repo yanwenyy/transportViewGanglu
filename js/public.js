@@ -2,8 +2,8 @@
 const http_url = {
     formal_url: "http://27.188.74.31:9080/jinding-back/",//正式
     test_url: "http://59.110.54.1:8080/jinding-back/",//测试
-    Socket_url: "ws://59.110.54.1:8080/jinding-back/imserver/",
-    // Socket_url:"ws://192.168.2.19:8081/px_edu/imserver/",
+    Socket_url: "ws://27.188.74.31:9080/jinding-back/imserver/",
+    // Socket_url:"ws://59.110.54.1:8080/jinding-back/imserver/",
     url: "http://27.188.74.31:9080/jinding-back/"
 };
 function GetQueryString(name) {
@@ -133,7 +133,7 @@ PxSocket.prototype = {
                 _this.reconnect(_this.ws);
                 console.log(_this.options.name +" closed websockettttttt!")
             }
-        } catch {
+        } catch (e){
             _this.reconnect(_this.ws);
 
         }
