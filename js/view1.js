@@ -7,22 +7,42 @@ $(function () {
         $(".img-pre>img").attr("src",src);
         $(".img-pre").removeClass("out");
     });
-    $("body").on("mousewheel",".img-pre>img",function (e) {
-        var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
-            (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));              // firefox
-        if (delta > 0) {
-            // 向上滚
-            $(this).css("max-width",'100%');
-            $(this).width($(this).width()*1.1);
-        } else if (delta < 0) {
-            // 向下滚
-            $(this).width($(this).width()*0.8);
-        }
+    // $("body").on("mousewheel",".img-pre>img",function (e) {
+    //     var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
+    //         (e.originalEvent.detail && (e.originalEvent.detail > 0 ? -1 : 1));              // firefox
+    //     if (delta > 0) {
+    //         // 向上滚
+    //         $(this).css("max-width",'100%');
+    //         $(this).width($(this).width()*1.1);
+    //     } else if (delta < 0) {
+    //         // 向下滚
+    //         $(this).width($(this).width()*0.8);
+    //     }
+    // });
+    var current=0,zoom=1;
+    $(".img-pre>img").click(function () {
+        $(".img-pre").addClass("out");
+        $(".img-pre>img").css("max-width",'60%').css("transform","rotate(0deg)scale(1,1)");
+        current=0;zoom=1;
     });
-    $(".img-pre").click(function () {
-        $(this).addClass("out");
-        $(".img-pre>img").css("max-width",'60%');
+    $(".translate").click(function () {
+        current = (current+90)%360;
+        $(".img-pre>img").css("transform","rotate("+current+"deg)scale("+zoom,+","+zoom+")");
     });
+    $(".big").click(function () {
+        zoom += 0.1;
+        $(".img-pre>img").css("transform","rotate("+current+"deg)scale("+zoom,+","+zoom+")");
+    });
+    $(".small").click(function () {
+        zoom -= 0.1;
+        $(".img-pre>img").css("transform","rotate("+current+"deg)scale("+zoom,+","+zoom+")");
+    });
+    $(".close-pre").click(function () {
+        $(".img-pre").addClass("out");
+        $(".img-pre>img").css("max-width",'60%').css("transform","rotate(0deg)scale(1,1)");
+        current=0;zoom=1;
+    });
+
 
 
 
