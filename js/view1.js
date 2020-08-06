@@ -6,6 +6,8 @@ $(function () {
         var src=$(this).attr("src");
         $(".img-pre>img").attr("src",src);
         $(".img-pre").removeClass("out");
+        document.body.style.overflow='hidden';
+        document.body.style.height='100%';
     });
     $("body").on("mousewheel",".img-pre>img",function (e) {
         var delta = (e.originalEvent.wheelDelta && (e.originalEvent.wheelDelta > 0 ? 1 : -1)) ||  // chrome & ie
@@ -19,10 +21,34 @@ $(function () {
             $(this).width($(this).width()*0.8);
         }
     });
-    $(".img-pre").click(function () {
-        $(this).addClass("out");
-        $(".img-pre>img").css("max-width",'60%');
+    var current=0,zoom=1;
+    $(".img-pre>img").click(function () {
+        $(".img-pre").addClass("out");
+        $(".img-pre>img").css("max-width",'60%').css("transform","rotate(0deg)scale(1,1)");
+        document.body.style.overflow='auto';
+        document.body.style.height='auto';
+        current=0;zoom=1;
     });
+    $(".translate").click(function () {
+        current = (current+90)%360;
+        $(".img-pre>img").css("transform","rotate("+current+"deg)scale("+zoom,+","+zoom+")");
+    });
+    $(".big").click(function () {
+        zoom += 0.1;
+        $(".img-pre>img").css("transform","rotate("+current+"deg)scale("+zoom,+","+zoom+")");
+    });
+    $(".small").click(function () {
+        zoom -= 0.1;
+        $(".img-pre>img").css("transform","rotate("+current+"deg)scale("+zoom,+","+zoom+")");
+    });
+    $(".close-pre").click(function () {
+        $(".img-pre").addClass("out");
+        $(".img-pre>img").css("max-width",'60%').css("transform","rotate(0deg)scale(1,1)");
+        document.body.style.overflow='auto';
+        document.body.style.height='auto';
+        current=0;zoom=1;
+    });
+
 
 
 
@@ -59,13 +85,13 @@ $(function () {
             var list=data.data,i=0,len=list.length,html='';
             for(;i<len;i++){
                 var v=list[i];
-                var enterImg=v.enterImg?v.enterImg.split(','):[],eterImgHtml=``;
+                var enterImg=v.enterImg?v.enterImg.split(','):[],eterImgHtml='';
                 for(var j=0;j<enterImg.length;j++){
-                    eterImgHtml+=`<img title="点击查看大图" class="table-img" src="${enterImg[j]&&enterImg[j].indexOf('http')!=-1?enterImg[j]:enterImg[j]?http_url.url+'/jinding/showImg/'+enterImg[j]:''}" alt="">`
+                    eterImgHtml+='<img title="点击查看大图" class="table-img" src="'+(enterImg[j]&&enterImg[j].indexOf('http')!=-1?enterImg[j]:enterImg[j]?http_url.url+'/jinding/showImg/'+enterImg[j]:'')+'" alt="">';
                 }
-                var outImg=v.outImg?v.outImg.split(','):[],outImgHtml=``;
+                var outImg=v.outImg?v.outImg.split(','):[],outImgHtml='';
                 for(var k=0;k<outImg.length;k++){
-                    outImgHtml+=`<img title="点击查看大图" class="table-img" src="${outImg[k]&&outImg[k].indexOf('http')!=-1?outImg[k]:outImg[k]?http_url.url+'/jinding/showImg/'+outImg[k]:''}" alt="">`
+                    outImgHtml+='<img title="点击查看大图" class="table-img" src="'+(outImg[k]&&outImg[k].indexOf('http')!=-1?outImg[k]:outImg[k]?http_url.url+'/jinding/showImg/'+outImg[k]:'')+'" alt="">';
                 }
                 html+=' <tr>\n' +
                     '<td>'+(v.enterTime||'')+'</td>\n' +
