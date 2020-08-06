@@ -102,7 +102,7 @@ PxSocket.prototype = {
         var _this = this;
         try {
             if ('WebSocket' in window) {
-                console.log(_this.options.url + _this.options.data)
+                // console.log(_this.options.url + _this.options.data)
                 _this.ws = new WebSocket(_this.options.url + _this.options.data);
                 // console.log( _this.ws)
                 // console.log(http_url.Socket_url+options.id)
@@ -210,4 +210,16 @@ function getBase64(file) {
             resolve(imgResult)
         }
     })
+};
+
+//比较日期大小
+function CompareDate(date1,date2){
+    console.log(date1,date2)
+    var oDate1 = new Date(date1);
+    var oDate2 = new Date(date2);
+    if(oDate1.getTime() > oDate2.getTime()){
+        return false;
+    } else {
+        return true;
+    }
 }
