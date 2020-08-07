@@ -44,7 +44,11 @@ $(function () {
                           $("#registTime").val(datas.registTime);
                           $("#vehicleNum").val(datas.vehicleNum);
                           $("#engineNum").val(datas.engineNum);
+                          $("#owner").val(datas.owner);
                           wzsb=datas.drivinglLicense;
+                          if(datas.ifScan==1){
+                              alert("你已经录入过此车辆信息，是否继续录入")
+                          }
                       }else{
                           alert(data.msg)
                       }
