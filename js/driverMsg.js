@@ -90,6 +90,7 @@ $(function () {
                     "carCheckList":scqd,
                     "drivinglLicense":wzsb,
                     "emissionStand":$("#emissionStand").val(),
+                    "owner":$("#owner").val()
                 },function(data){
                     if(data.code==10000){
                         $(".shadow").show();
