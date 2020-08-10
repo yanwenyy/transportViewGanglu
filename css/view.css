@@ -305,6 +305,27 @@ body {
     display: none;
 }
 
+/*8-10开始*/
+.box-div-search{
+    padding:0 11px;
+    margin-top: 30px;
+    color:#86CCFD;
+}
+.box-div-search-list>input,.box-div-search-list>select{
+    width: 150px;
+    height: 30px;
+    line-height: 30px;
+    background: rgba(255,255,255,.3);
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    padding-left: 20px;
+}
+.box-div-search-list>select>option{
+    color:#86CCFD;
+    background:#00043A;
+}
+
 @media (max-width: 900px) {
     .echarts-div2{
         width: 100%;
