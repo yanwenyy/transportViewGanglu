@@ -46,9 +46,14 @@ $(function () {
                           $("#engineNum").val(datas.engineNum);
                           $("#owner").val(datas.owner);
                           wzsb=datas.drivinglLicense;
-                          if(datas.ifScan==1){
-                              alert("你已经录入过此车辆信息，是否继续录入")
-                          }
+                          alerting({
+                              msg:'你已经录入过此车辆信息，是否继续录入',
+                              ok:'是',
+                              no:'否',
+                              callback:function(){
+                                  console.log("执行回调")
+                              }
+                          });
                       }else{
                           alert(data.msg)
                       }
