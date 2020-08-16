@@ -233,6 +233,21 @@ $(function () {
             autoRowSpan('newSummary',1,0);
         }
     }
+    //汇总合计
+    ajax_get("jinding/sum/list/count", function (data) {
+        var list=data.data,i=0,len=list.length,html='';
+        for(;i<len;i++){
+            var v=list[i];
+            html+=' <tr>\n' +
+                '<td>'+(v.measureType&&(v.measureType==1?'采购 ':v.measureType==2?'采购 ':'采购+销售'))+'</td>\n' +
+                '<td>'+(v.trainWeigh||'')+'</td>\n' +
+                '<td>'+(v.carWeigh||'')+'</td>\n' +
+                '<td>'+(v.sumWeigh||'')+'</td>\n' +
+                '<td>'+(v.percentage%1===0?v.percentage*100+'%':(v.percentage*100).toFixed(2)+'%')+'</td>\n' +
+                '</tr>'
+        }
+        $(".hj").html(html);
+    });
     //外部车辆
     function timeOutCar() {
         externalVehicle={

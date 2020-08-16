@@ -325,6 +325,11 @@ body {
     color:#86CCFD;
     background:#00043A;
 }
+.tabel-name{
+    color:#86CCFD;
+    font-size: 14px;
+    margin: 10px 0;
+}
 
 @media (max-width: 900px) {
     .echarts-div2{
