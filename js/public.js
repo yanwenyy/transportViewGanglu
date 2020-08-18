@@ -4,7 +4,7 @@ const http_url = {
     test_url: "http://59.110.54.1:8080/jinding-back/",//测试
     Socket_url: "ws://27.188.74.31:9080/jinding-back/imserver/",
     // Socket_url:"ws://59.110.54.1:8080/jinding-back/imserver/",
-    url: "http://59.110.54.1:8080/jinding-back/"
+    url: "http://27.188.74.31:9080/jinding-back/"
 };
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");

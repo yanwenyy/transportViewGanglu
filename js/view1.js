@@ -102,7 +102,7 @@ $(function () {
                 html+=' <tr>\n' +
                     '<td>'+(v.enterTime||'')+'</td>\n' +
                     '<td>'+(v.outFactoryTime||'')+'</td>\n' +
-                    '<td><img title="点击查看大图" class="table-img" src="'+(v.poundRoom&&v.poundRoom.indexOf('http')!=-1?v.poundRoom:v.poundRoom?http_url.url+'/jinding/showImg/'+v.poundRoom:'')+'" alt=""></td>\n' +
+                    '<td><img title="点击查看大图" class="table-img" src="'+(v.poundImg&&v.poundImg.indexOf('http')!=-1?v.poundImg:v.poundImg?http_url.url+'/jinding/showImg/'+v.poundImg:'')+'" alt=""></td>\n' +
                     '<td>'+(v.carNum||'')+'</td>\n' +
                     '<td>'+(v.registTime&&v.registTime.split(" ")[0]||'')+'</td>\n' +
                     '<td>'+(v.vehicleNum||'')+'</td>\n' +
@@ -257,7 +257,7 @@ $(function () {
             emissionStand:$('.externalVehicle-emissionStand').val()||'',
         };
         ajax_get("jinding/outcar/list?pageNum=1&pageSize="+imgPage+"&timeStart="+externalVehicle.timeStart+"&timeEnd="+externalVehicle.timeEnd+"&fuelType="+externalVehicle.fuelType+"&emissionStand="+externalVehicle.emissionStand, function (data) {
-            $("#tranPage").paging({
+            $("#outTranPage").paging({
                     total: data.total,
                     numberPage: imgPage
                 },
