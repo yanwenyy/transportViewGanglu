@@ -113,7 +113,7 @@ $(function () {
                     '<td>'+(v.doorEmissionStand||'')+'</td>\n' +
                     '<td>'+(v.materialsName||'')+'</td>\n' +
                     '<td>'+(v.netWeigh||'')+'</td>\n' +
-                    '<td>'+(v.tranType==1?'公路':'铁路')+'</td>\n' +
+                    '<td>'+(v.tranType==1?'公路':v.tranType==0?'铁路':v.tranType==2?'纯电动':'')+'</td>\n' +
                     '<td>'+(v.transportUnit||'')+'</td>\n' +
                     '</tr>'
             }
@@ -221,10 +221,12 @@ $(function () {
                     '<td>'+(v.measureType&&(v.measureType==1?'采购 ':'销售'))+'</td>\n' +
                     '<td>'+(v.materialsPname||'')+'</td>\n' +
                     '<td>'+(v.materialsName||'')+'</td>\n' +
-                    '<td>'+(v.trainNum||'')+'</td>\n' +
-                    '<td>'+(v.trainWeigh||'')+'</td>\n' +
-                    '<td>'+(v.carNum||'')+'</td>\n' +
-                    '<td>'+(v.carWeigh||'')+'</td>\n' +
+                    '<td>'+(v.trainNum)+'</td>\n' +
+                    '<td>'+(v.trainWeigh==0||v.trainWeigh%1==0?v.trainWeigh:v.trainWeigh.toFixed(2))+'</td>\n' +
+                    '<td>'+(v.electNum)+'</td>\n' +
+                    '<td>'+(v.electWeigh==0||v.electWeigh%1==0?v.electWeigh:v.electWeigh.toFixed(2))+'</td>\n' +
+                    '<td>'+(v.carNum)+'</td>\n' +
+                    '<td>'+(v.carWeigh==0||v.carWeigh%1==0?v.carWeigh:v.carWeigh.toFixed(2))+'</td>\n' +
                     '<td>'+(v.percentage%1===0?v.percentage*100+'%':(v.percentage*100).toFixed(2)+'%')+'</td>\n' +
                     '</tr>'
             }
@@ -240,9 +242,10 @@ $(function () {
             var v=list[i];
             html+=' <tr>\n' +
                 '<td>'+(v.measureType&&(v.measureType==1?'采购 ':v.measureType==2?'采购 ':'采购+销售'))+'</td>\n' +
-                '<td>'+(v.trainWeigh||'')+'</td>\n' +
-                '<td>'+(v.carWeigh||'')+'</td>\n' +
-                '<td>'+(v.sumWeigh||'')+'</td>\n' +
+                '<td>'+(v.trainWeigh==0||v.trainWeigh%1==0?v.trainWeigh:v.trainWeigh.toFixed(2))+'</td>\n' +
+                '<td>'+(v.electWeigh==0||v.electWeigh%1==0?v.electWeigh:v.electWeigh.toFixed(2))+'</td>\n' +
+                '<td>'+(v.carWeigh==0||v.carWeigh%1==0?v.carWeigh:v.carWeigh.toFixed(2))+'</td>\n' +
+                '<td>'+(v.sumWeigh==0||v.sumWeigh%1==0?v.sumWeigh:v.sumWeigh.toFixed(2))+'</td>\n' +
                 '<td>'+(v.percentage%1===0?v.percentage*100+'%':(v.percentage*100).toFixed(2)+'%')+'</td>\n' +
                 '</tr>'
         }
