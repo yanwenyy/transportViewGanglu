@@ -42,28 +42,37 @@ $(function () {
                       if(data.code==10000){
                           var datas=data.data;
                           $(".img-sb-model").hide();
-                          Box({
-                              type: 'confirm',
-                              msg: '你已经录入过此车辆信息，是否继续录入',
-                              okText:'是',
-                              cancelText:'否',
-                              confirmClass,
-                              cancelClass,
-                              succ: function () {
-                                  $("#carNum").val(datas.carNum);
-                                  $("#registTime").val(datas.registTime);
-                                  $("#vehicleNum").val(datas.vehicleNum);
-                                  $("#engineNum").val(datas.engineNum);
-                                  $("#owner").val(datas.owner);
-                                  wzsb=datas.drivinglLicense;
-                              },
-                              cancel:function () {
-                                  console.log("取消啦")
-                                  that[0].value = null;
-                              }
-                          });
+                          $("#carNum").val(datas.carNum);
+                          $("#registTime").val(datas.registTime);
+                          $("#vehicleNum").val(datas.vehicleNum);
+                          $("#engineNum").val(datas.engineNum);
+                          $("#owner").val(datas.owner);
+                          wzsb=datas.drivinglLicense;
+                          if(datas.ifScan==1){
+                              Box({
+                                  type: 'confirm',
+                                  msg: '你已经录入过此车辆信息，是否继续录入',
+                                  okText:'是',
+                                  cancelText:'否',
+                                  confirmClass,
+                                  cancelClass,
+                                  succ: function () {
+
+                                  },
+                                  cancel:function () {
+                                      console.log("取消啦")
+                                      that[0].value = null;
+                                      window.close();
+                                      WeixinJSBridge.call('closeWindow');
+                                  }
+                              });
+                          }
                       }else{
-                          alert(data.msg)
+                          Box({
+                              type: 'alert',
+                              confirmClass,
+                              msg: data.msg,
+                          });
                       }
                   })
                }
