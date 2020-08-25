@@ -203,7 +203,7 @@ $(function () {
         };
         ajax_get("jinding/sum/list/two?pageNum=1&pageSize="+noImgPage+"&timeStart="+summary.timeStart+"&timeEnd="+summary.timeEnd+"&meaType="+summary.meaType+"&materialsPname="+summary.materialsPname+"&tranType="+summary.tranType+"&emissionStand="+summary.emissionStand+"&materialsName="+summary.materialsName, function (data) {
             $("#totalPage").paging({
-                    total: 10,
+                    total:  data.total,
                     numberPage: noImgPage
                 },
                 function(msg) {
@@ -241,7 +241,7 @@ $(function () {
         for(;i<len;i++){
             var v=list[i];
             html+=' <tr>\n' +
-                '<td>'+(v.measureType&&(v.measureType==1?'采购 ':v.measureType==2?'采购 ':'采购+销售'))+'</td>\n' +
+                '<td>'+(v.measureType&&(v.measureType==1?'采购 ':v.measureType==2?'销售 ':'采购+销售'))+'</td>\n' +
                 '<td>'+(v.trainWeigh==0||v.trainWeigh%1==0?v.trainWeigh:v.trainWeigh.toFixed(2))+'</td>\n' +
                 '<td>'+(v.electWeigh==0||v.electWeigh%1==0?v.electWeigh:v.electWeigh.toFixed(2))+'</td>\n' +
                 '<td>'+(v.carWeigh==0||v.carWeigh%1==0?v.carWeigh:v.carWeigh.toFixed(2))+'</td>\n' +
