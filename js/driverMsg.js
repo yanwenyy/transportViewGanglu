@@ -106,7 +106,7 @@ $(function () {
             });
         }else{
             // console.log(fuelType=='柴油'&&CompareDate('2017-1-1',$("#registTime").val())||fuelType=='天然气'&&CompareDate('2012-7-1',$("#registTime").val())||fuelType=='纯电动'||fuelType=='油电混动')
-            if(fuelType=='柴油'&&CompareDate('2017-1-1',$("#registTime").val())||fuelType=='天然气'&&CompareDate('2012-7-1',$("#registTime").val())||fuelType=='纯电动'||fuelType=='油电混动'){
+            // if(fuelType=='柴油'&&CompareDate('2017-1-1',$("#registTime").val())||fuelType=='天然气'&&CompareDate('2012-7-1',$("#registTime").val())||fuelType=='纯电动'||fuelType=='油电混动'){
                 ajax("/jinding/sacn/vehicle",{
                     "carNum":$("#carNum").val(),
                     "registTime":$("#registTime").val(),
@@ -128,13 +128,13 @@ $(function () {
                         });
                     }
                 })
-            }else{
-                Box({
-                    type: 'alert',
-                    confirmClass,
-                    msg: "只支持国五或国六的车",
-                });
-            }
+            // }else{
+            //     Box({
+            //         type: 'alert',
+            //         confirmClass,
+            //         msg: "只支持国五或国六的车",
+            //     });
+            // }
         }
    });
    $(".sub-again").click(function () {
