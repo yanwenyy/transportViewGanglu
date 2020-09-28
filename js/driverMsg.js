@@ -96,6 +96,7 @@ $(function () {
        that.parent().parent().next(".img-up-box").show();
        that.parent().remove();
    });
+    var regExp = /(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$)/;
    $(".sub-btn").click(function () {
         var scqd=$(".scqdimg").attr("data-url"),fuelType=$("#fuelType").val();
         if($("#carNum").val()==''||$("#registTime").val()==''||$("#vehicleNum").val()==''||$("#engineNum").val()==''||$("#fuelType").val()==''|| $("#emissionStand").val()==''||scqd==''||scqd==undefined||wzsb==''||wzsb==undefined){
@@ -104,9 +105,16 @@ $(function () {
                 confirmClass,
                 msg: '请完善信息',
             });
+        }else if(!regExp.test($("#carNum").val())){
+            Box({
+                type: 'alert',
+                confirmClass,
+                msg: '请输入正确的车牌号格式',
+            });
         }else{
             // console.log(fuelType=='柴油'&&CompareDate('2017-1-1',$("#registTime").val())||fuelType=='天然气'&&CompareDate('2012-7-1',$("#registTime").val())||fuelType=='纯电动'||fuelType=='油电混动')
             // if(fuelType=='柴油'&&CompareDate('2017-1-1',$("#registTime").val())||fuelType=='天然气'&&CompareDate('2012-7-1',$("#registTime").val())||fuelType=='纯电动'||fuelType=='油电混动'){
+
                 ajax("/jinding/sacn/vehicle",{
                     "carNum":$("#carNum").val(),
                     "registTime":$("#registTime").val(),
@@ -128,6 +136,7 @@ $(function () {
                         });
                     }
                 })
+
             // }else{
             //     Box({
             //         type: 'alert',
