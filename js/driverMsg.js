@@ -1,8 +1,8 @@
 $(function () {
     var scqd=[],
-        xsz=[],wzsb='';
-    var confirmClass={"color":"#fff","background":"#36BCA9"},
-        cancelClass={"color":"#666","background":"#eee"};
+        xsz=[],wzsb='',vin='',ifStatus=1;
+    var confirmClass={"color":"#fff","background":"#36BCA9","width":"40%"},
+        cancelClass={"color":"#666","background":"#eee","width":"40%"};
     //随车清单,行驶证图片上传
    $(".img-up-input").on("change",function () {
        var that=$(this),
@@ -39,9 +39,9 @@ $(function () {
                   ajax('/jinding/sacn/img',{
                       "imgBase":_url
                   },function (data) {
+                      $(".img-sb-model").hide();
                       if(data.code==10000){
                           var datas=data.data;
-                          $(".img-sb-model").hide();
                           $("#carNum").val(datas.carNum);
                           $("#registTime").val(datas.registTime);
                           $("#vehicleNum").val(datas.vehicleNum);
@@ -76,6 +76,48 @@ $(function () {
                       }
                   })
                }
+               else if(list=='scqd'){
+                   $(".img-sb-model").show();
+                   ajax('/jinding/sacn/qrcodeimg',{
+                       "imgBase":_url
+                   },function (data) {
+                       $(".img-sb-model").hide();
+                       if(data.code==10000){
+                           var datas=data.data;
+                           vin=datas.vin;
+                           scqd=datas.imgName;
+                           if(vin!=$("#vehicleNum").val()){
+                               Box({
+                                   type: 'confirm',
+                                   msg: '识别不到随车清单的信息,请重新上传高清的图片或者继续提交,由相关人员审核',
+                                   okText:'去审核',
+                                   cancelText:'重新上传',
+                                   confirmClass,
+                                   cancelClass,
+                                   succ: function () {
+                                       ifStatus=0;
+                                   },
+                                   cancel:function () {
+                                       console.log("取消啦");
+                                       that[0].value = null;
+                                       scqd='';
+                                       that.parent().prev(".img-show").children(".imgshow-box").remove();
+                                       that.parent().show();
+                                   }
+                               });
+                           }else{
+
+                           }
+                       }else{
+                           Box({
+                               type: 'alert',
+                               confirmClass,
+                               msg: data.msg,
+                           });
+                       }
+                   })
+               }
+               that[0].value = null;
                that.parent().hide();
                $("."+parent).append(html);
            };
@@ -85,6 +127,9 @@ $(function () {
        var that=$(this),
            list=that.attr("data-list"),
            _url=that.attr("data-url");
+      //  var file = document.getElementsByClassName(list+'input');
+      //  file.value = ''; //file的value值只能设置为空字符串
+      // console.log(file);
        // if(list=='scqd'){
        //     scqd.remove(_url);
        //     that.parent().parent().next(".img-up-box").show();
@@ -98,7 +143,7 @@ $(function () {
    });
     var regExp = /(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$)/;
    $(".sub-btn").click(function () {
-        var scqd=$(".scqdimg").attr("data-url"),fuelType=$("#fuelType").val();
+        var fuelType=$("#fuelType").val();
         if($("#carNum").val()==''||$("#registTime").val()==''||$("#vehicleNum").val()==''||$("#engineNum").val()==''||$("#fuelType").val()==''|| $("#emissionStand").val()==''||scqd==''||scqd==undefined||wzsb==''||wzsb==undefined){
             Box({
                 type: 'alert',
@@ -124,7 +169,8 @@ $(function () {
                     "carCheckList":scqd,
                     "drivinglLicense":wzsb,
                     "emissionStand":$("#emissionStand").val(),
-                    "owner":$("#owner").val()
+                    "owner":$("#owner").val(),
+                    "ifStatus":ifStatus
                 },function(data){
                     if(data.code==10000){
                         $(".shadow").show();
