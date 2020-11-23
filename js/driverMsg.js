@@ -1,6 +1,6 @@
 $(function () {
     var scqd=[],
-        xsz=[],wzsb='',vin='',ifStatus=1,ifScan=0;
+        xsz=[],wzsb='',vin='',ifStatus=1,ifScan=0,ifSub=true;
     var confirmClass={"color":"#fff","background":"#36BCA9","width":"40%"},
         cancelClass={"color":"#666","background":"#eee","width":"40%"};
     //随车清单,行驶证图片上传
@@ -51,6 +51,7 @@ $(function () {
                           ifScan=datas.ifScan;
                          if(datas.ifScan==1){
                              $(".sub-btn").addClass('btn-disabled');
+                             ifSub=false;
                               Box({
                                   type: 'alert',
                                   msg: '该车排放阶段审核不通过',
@@ -63,6 +64,7 @@ $(function () {
                               });
                           }else if(datas.ifScan==2){
                              $(".sub-btn").addClass('btn-disabled');
+                             ifSub=false;
                               Box({
                                   type: 'alert',
                                   msg: '该车已经审核通过',
@@ -168,8 +170,11 @@ $(function () {
    $(".sub-btn").click(function () {
         var fuelType=$("#fuelType").val();
        var scqd=$(".scqdimg").attr("data-url"),fuelType=$("#fuelType").val();
-       if(!$( $(".sub-btn").hasClass('btn-disabled'))){
+       if(ifSub){
            if($("#carNum").val()==''||$("#registTime").val()==''||$("#vehicleNum").val()==''||$("#engineNum").val()==''||$("#fuelType").val()==''|| $("#emissionStand").val()==''||scqd==''||scqd==undefined||wzsb==''||wzsb==undefined){
+              console.log($("#fuelType").val());
+               console.log(scqd);
+               console.log(wzsb)
                Box({
                    type: 'alert',
                    confirmClass,
