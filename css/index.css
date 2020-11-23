@@ -197,3 +197,7 @@
     color:#fff;
     background: #36BCA9;
 }
+.btn-disabled{
+    background: #ddd!important;
+    color:#fff!important;
+}

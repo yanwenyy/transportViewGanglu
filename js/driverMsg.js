@@ -1,6 +1,6 @@
 $(function () {
     var scqd=[],
-        xsz=[],wzsb='',vin='',ifStatus=1;
+        xsz=[],wzsb='',vin='',ifStatus=1,ifScan=0;
     var confirmClass={"color":"#fff","background":"#36BCA9","width":"40%"},
         cancelClass={"color":"#666","background":"#eee","width":"40%"};
     //随车清单,行驶证图片上传
@@ -48,25 +48,43 @@ $(function () {
                           $("#engineNum").val(datas.engineNum);
                           $("#owner").val(datas.owner);
                           wzsb=datas.drivinglLicense;
-                          if(datas.ifScan==1){
+                          ifScan=datas.ifScan;
+                         if(datas.ifScan==1){
+                             $(".sub-btn").addClass('btn-disabled');
                               Box({
-                                  type: 'confirm',
-                                  msg: '你已经录入过此车辆信息，是否继续录入',
-                                  okText:'是',
-                                  cancelText:'否',
+                                  type: 'alert',
+                                  msg: '该车排放阶段审核不通过',
                                   confirmClass,
-                                  cancelClass,
                                   succ: function () {
-
-                                  },
-                                  cancel:function () {
-                                      console.log("取消啦")
                                       that[0].value = null;
-                                      window.close();
-                                      WeixinJSBridge.call('closeWindow');
+                                      // window.close();
+                                      // WeixinJSBridge.call('closeWindow');
                                   }
                               });
-                          }
+                          }else if(datas.ifScan==2){
+                             $(".sub-btn").addClass('btn-disabled');
+                              Box({
+                                  type: 'alert',
+                                  msg: '该车已经审核通过',
+                                  confirmClass,
+                                  succ: function () {
+                                      that[0].value = null;
+                                      // window.close();
+                                      // WeixinJSBridge.call('closeWindow');
+                                  }
+                              });
+                          }else if(datas.ifScan==3){
+                             Box({
+                                 type: 'alert',
+                                 msg: '该车格式不通过,需要重新补录',
+                                 confirmClass,
+                                 succ: function () {
+                                     // that[0].value = null;
+                                     // window.close();
+                                     // WeixinJSBridge.call('closeWindow');
+                                 }
+                             });
+                         }
                       }else{
                           Box({
                               type: 'alert',
@@ -150,53 +168,44 @@ $(function () {
    $(".sub-btn").click(function () {
         var fuelType=$("#fuelType").val();
        var scqd=$(".scqdimg").attr("data-url"),fuelType=$("#fuelType").val();
-        if($("#carNum").val()==''||$("#registTime").val()==''||$("#vehicleNum").val()==''||$("#engineNum").val()==''||$("#fuelType").val()==''|| $("#emissionStand").val()==''||scqd==''||scqd==undefined||wzsb==''||wzsb==undefined){
-            Box({
-                type: 'alert',
-                confirmClass,
-                msg: '请完善信息',
-            });
-        }else if(!regExp.test($("#carNum").val())){
-            Box({
-                type: 'alert',
-                confirmClass,
-                msg: '请输入正确的车牌号格式',
-            });
-        }else{
-            // console.log(fuelType=='柴油'&&CompareDate('2017-1-1',$("#registTime").val())||fuelType=='天然气'&&CompareDate('2012-7-1',$("#registTime").val())||fuelType=='纯电动'||fuelType=='油电混动')
-            // if(fuelType=='柴油'&&CompareDate('2017-1-1',$("#registTime").val())||fuelType=='天然气'&&CompareDate('2012-7-1',$("#registTime").val())||fuelType=='纯电动'||fuelType=='油电混动'){
-
-                ajax("/jinding/sacn/vehicle",{
-                    "carNum":$("#carNum").val(),
-                    "registTime":$("#registTime").val(),
-                    "vehicleNum":$("#vehicleNum").val(),
-                    "engineNum":$("#engineNum").val(),
-                    "fuelType":$("#fuelType").val(),
-                    "carCheckList":scqd,
-                    "drivinglLicense":wzsb,
-                    "emissionStand":$("#emissionStand").val(),
-                    "owner":$("#owner").val(),
-                    "ifStatus":ifStatus
-                },function(data){
-                    if(data.code==10000){
-                        $(".shadow").show();
-                    }else{
-                        Box({
-                            type: 'alert',
-                            confirmClass,
-                            msg: data.msg,
-                        });
-                    }
-                })
-
-            // }else{
-            //     Box({
-            //         type: 'alert',
-            //         confirmClass,
-            //         msg: "只支持国五或国六的车",
-            //     });
-            // }
-        }
+       if(!$( $(".sub-btn").hasClass('btn-disabled'))){
+           if($("#carNum").val()==''||$("#registTime").val()==''||$("#vehicleNum").val()==''||$("#engineNum").val()==''||$("#fuelType").val()==''|| $("#emissionStand").val()==''||scqd==''||scqd==undefined||wzsb==''||wzsb==undefined){
+               Box({
+                   type: 'alert',
+                   confirmClass,
+                   msg: '请完善信息',
+               });
+           }else if(!regExp.test($("#carNum").val())){
+               Box({
+                   type: 'alert',
+                   confirmClass,
+                   msg: '请输入正确的车牌号格式',
+               });
+           }else{
+               ajax("/jinding/sacn/vehicle",{
+                   "carNum":$("#carNum").val(),
+                   "registTime":$("#registTime").val(),
+                   "vehicleNum":$("#vehicleNum").val(),
+                   "engineNum":$("#engineNum").val(),
+                   "fuelType":$("#fuelType").val(),
+                   "carCheckList":scqd,
+                   "drivinglLicense":wzsb,
+                   "emissionStand":$("#emissionStand").val(),
+                   "owner":$("#owner").val(),
+                   "ifScan":ifScan
+               },function(data){
+                   if(data.code==10000){
+                       $(".shadow").show();
+                   }else{
+                       Box({
+                           type: 'alert',
+                           confirmClass,
+                           msg: data.msg,
+                       });
+                   }
+               })
+           }
+       }
    });
    $(".sub-again").click(function () {
        location.reload();
