@@ -76,47 +76,52 @@ $(function () {
                       }
                   })
                }
-               else if(list=='scqd'){
-                   $(".img-sb-model").show();
-                   ajax('/jinding/sacn/qrcodeimg',{
-                       "imgBase":_url
-                   },function (data) {
-                       $(".img-sb-model").hide();
-                       if(data.code==10000){
-                           var datas=data.data;
-                           vin=datas.vin;
-                           scqd=datas.imgName;
-                           if(vin!=$("#vehicleNum").val()){
-                               Box({
-                                   type: 'confirm',
-                                   msg: '识别不到随车清单的信息,请重新上传高清的图片或者继续提交,由相关人员审核',
-                                   okText:'去审核',
-                                   cancelText:'重新上传',
-                                   confirmClass,
-                                   cancelClass,
-                                   succ: function () {
-                                       ifStatus=0;
-                                   },
-                                   cancel:function () {
-                                       console.log("取消啦");
-                                       that[0].value = null;
-                                       scqd='';
-                                       that.parent().prev(".img-show").children(".imgshow-box").remove();
-                                       that.parent().show();
-                                   }
-                               });
-                           }else{
+               // else if(list=='scqd'){
+               //     $(".img-sb-model").show();
+               //     ajax('/jinding/sacn/qrcodeimg',{
+               //         "imgBase":_url
+               //     },function (data) {
+               //         $(".img-sb-model").hide();
+               //         if(data.code==10000){
+               //             var datas=data.data;
+               //             vin=datas.vin;
+               //             scqd=datas.imgName;
+               //             if(vin!=$("#vehicleNum").val()){
+               //                 Box({
+               //                     type: 'confirm',
+               //                     msg: '识别不到随车清单的信息,请重新上传高清的图片或者继续提交,由相关人员审核',
+               //                     okText:'去审核',
+               //                     cancelText:'重新上传',
+               //                     confirmClass,
+               //                     cancelClass,
+               //                     succ: function () {
+               //                         ifStatus=0;
+               //                     },
+               //                     cancel:function () {
+               //                         console.log("取消啦");
+               //                         that[0].value = null;
+               //                         scqd='';
+               //                         that.parent().prev(".img-show").children(".imgshow-box").remove();
+               //                         that.parent().show();
+               //                     }
+               //                 });
+               //             }else{
+               //
+               //             }
+               //         }else{
+               //             Box({
+               //                 type: 'alert',
+               //                 confirmClass,
+               //                 msg: data.msg,
+               //             });
+               //         }
+               //     })
+               // }
 
-                           }
-                       }else{
-                           Box({
-                               type: 'alert',
-                               confirmClass,
-                               msg: data.msg,
-                           });
-                       }
-                   })
-               }
+               that.parent().parent().next(".img-up-box").show();
+               that.parent().remove();
+
+
                that[0].value = null;
                that.parent().hide();
                $("."+parent).append(html);
@@ -144,6 +149,7 @@ $(function () {
     var regExp = /(^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-Z0-9]{4}[A-Z0-9挂学警港澳]{1}$)/;
    $(".sub-btn").click(function () {
         var fuelType=$("#fuelType").val();
+       var scqd=$(".scqdimg").attr("data-url"),fuelType=$("#fuelType").val();
         if($("#carNum").val()==''||$("#registTime").val()==''||$("#vehicleNum").val()==''||$("#engineNum").val()==''||$("#fuelType").val()==''|| $("#emissionStand").val()==''||scqd==''||scqd==undefined||wzsb==''||wzsb==undefined){
             Box({
                 type: 'alert',
