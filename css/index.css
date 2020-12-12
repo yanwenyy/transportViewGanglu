@@ -201,3 +201,16 @@
     background: #ddd!important;
     color:#fff!important;
 }
+.searchCar-btn{
+    width: 25%;
+    height: 6rem;
+    line-height: 6rem;
+    text-align: center;
+    font-size: 3rem;
+    border-radius: 1rem;
+    color: #fff;
+    margin-left: 34%;
+    box-sizing: border-box;
+    margin-top: 2rem;
+    background: rgba(64,158,255,.8);
+}

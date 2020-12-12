@@ -3,6 +3,48 @@ $(function () {
         xsz=[],wzsb='',vin='',ifStatus=1,ifScan=0,ifSub=true;
     var confirmClass={"color":"#fff","background":"#36BCA9","width":"40%"},
         cancelClass={"color":"#666","background":"#eee","width":"40%"};
+    //车牌号查询
+    $(".searchCar-btn").on('click',function () {
+        var carNum=$("#searchCar").val();
+        ajax_get('/jinding/check/car?carNum='+carNum,function (data) {
+            var datas=data.data;
+            if(datas){
+                if(datas.status==1){
+                    Box({
+                        type: 'alert',
+                        confirmClass,
+                        msg: '审核中',
+                    });
+                }else if(datas.status==2){
+                    Box({
+                        type: 'alert',
+                        confirmClass,
+                        msg: '审核通过',
+                    });
+                }else if(datas.status==3){
+                    if(datas.checkStatus==1){
+                        Box({
+                            type: 'alert',
+                            confirmClass,
+                            msg: '排放阶段不符合禁止注册',
+                        });
+                    }else if(datas.checkStatus==2){
+                        Box({
+                            type: 'alert',
+                            confirmClass,
+                            msg: '格式不通过需补录',
+                        });
+                    }
+                }
+            }else{
+                Box({
+                    type: 'alert',
+                    confirmClass,
+                    msg: '未注册',
+                });
+            }
+        })
+    });
     //随车清单,行驶证图片上传
    $(".img-up-input").on("change",function () {
        var that=$(this),
