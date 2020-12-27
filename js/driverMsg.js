@@ -9,7 +9,13 @@ $(function () {
         ajax_get('/jinding/check/car?carNum='+carNum,function (data) {
             var datas=data.data;
             if(datas){
-                if(datas.status==1){
+                if(datas.status==0){
+                    Box({
+                        type: 'alert',
+                        confirmClass,
+                        msg: '可以提交审核',
+                    });
+                }else if(datas.status==1){
                     Box({
                         type: 'alert',
                         confirmClass,
